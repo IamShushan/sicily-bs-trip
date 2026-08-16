@@ -1,0 +1,7 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Local setup handoff; permanent project guidance lives in AGENTS.md and docs/.
+sicily_codex_handoff_final.md
