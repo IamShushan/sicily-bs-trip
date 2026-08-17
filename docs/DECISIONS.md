@@ -8,6 +8,12 @@
 
 **Reason:** כתובת קבועה למשפחה ופריסה פשוטה של אתר סטטי.
 
+## Pull request previews
+
+**Decision:** כל Pull Request פנימי יקבל תגובה אוטומטית עם קישור לתצוגת `index.html` דרך `htmlpreview.github.io`, כשהקישור מקובע ל־commit העדכני של ה־PR.
+
+**Reason:** כך אפשר לבדוק את הגרסה המוצעת מרחוק ובמובייל לפני המיזוג, בלי לפרוס את ה־branch מעל האתר הפעיל ב־GitHub Pages.
+
 ## Canonical itinerary
 
 **Decision:** הגרסה הפעילה ב־`index.html` היא ה־Source of Truth.
@@ -23,6 +29,14 @@
 ## Etna / Taormina
 
 **Decision:** ניתן להחליף בין 29.11 ו־30.11 לפי התנאים ב־Etna.
+
+## Catania / Noto — 1.12
+
+**Decision:** Catania מחליפה את Noto במסלול הקנוני של 1.12. הביקור ב־Catania נשאר מלא, סביב 10:30–14:15. Noto נשמרת כיעד גיבוי בלבד.
+
+**Cantine Gulino:** תוספת קנונית מועדפת שממתינה לאישור, בחלון מבוקש של כ־16:00–16:15. היא אינה תנאי לכך שהיום יעבוד ואינה מסומנת כמאושרת או מוזמנת.
+
+**Reason:** יום המעבר נשאר רציף וגמיש: Catania מלאה פועלת גם ללא Gulino, ו־Noto נשארת חלופה מוכנה במקום להימחק.
 
 ## Architecture
 
