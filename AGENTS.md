@@ -77,6 +77,14 @@
 - לאחר שהבדיקות עוברות, פותחים Pull Request וממזגים דרכו.
 - אחרי המיזוג אפשר למחוק את ה־branch הייעודי.
 
+### Releases ו־rollback
+
+- כל merge ל־`main` יוצר אוטומטית patch release חדש בסדרת `v0.1.x`.
+- כותרות GitHub Releases נכתבות באנגלית.
+- מעבר ל־minor או major version דורש החלטה מפורשת; האוטומציה אינה מבצעת אותו לבד.
+- rollback מתבצע ב־branch חדש באמצעות `git revert` ו־Pull Request נוסף. אין להזיז tags קיימים או לבצע force-push ל־`main`.
+- יש לשמור את אוטומציית ה־release קטנה וללא dependencies חיצוניים, אלא אם נוצר צורך ממשי.
+
 ## פרטיות
 
 יש להניח שאתר GitHub Pages יכול להיות ציבורי.
