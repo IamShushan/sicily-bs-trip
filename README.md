@@ -26,6 +26,9 @@ python3 -m http.server 8000
 
 ```text
 .
+├── .github/
+│   └── workflows/
+│       └── release.yml
 ├── AGENTS.md
 ├── README.md
 ├── index.html
@@ -41,3 +44,9 @@ python3 -m http.server 8000
 GitHub Pages מוגדר לפרסום מענף `main` ומתיקיית השורש (`/`). כל שינוי מאומת שנדחף ל־`main` מתפרסם באותה כתובת קבועה.
 
 לפני push יש לוודא שאין מידע רגיש, קישורים פנימיים שבורים או פגיעה בתצוגת מובייל ו־desktop.
+
+## גרסאות ושחזור
+
+הגרסה הפעילה הראשונה מתועדת כ־`v0.1.0 — Baseline`. כל merge נוסף ל־`main` יוצר אוטומטית patch release חדש, למשל `v0.1.1 — Release`. כותרות ה־Releases נכתבות באנגלית; מעבר לגרסת minor או major נעשה רק בהחלטה מפורשת.
+
+כדי לחזור משינוי בעייתי, יוצרים branch חדש מ־`main`, מבטלים את ה־commit או את מיזוג ה־PR באמצעות `git revert`, ובודקים וממזגים את התיקון דרך PR רגיל. אין להזיז tag קיים או לבצע force-push ל־`main`; ה־rollback מתפרסם כגרסה חדשה ושומר את ההיסטוריה המלאה.

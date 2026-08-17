@@ -29,3 +29,11 @@
 **Decision:** בשלב הנוכחי נשארים עם אתר סטטי פשוט.
 
 **Reason:** אין כרגע צורך אמיתי ב־framework או backend.
+
+## Releases and rollback
+
+**Decision:** המצב הקיים תויג כ־`v0.1.0 — Baseline`. כל merge ל־`main` יוצר אוטומטית patch release חדש בסדרת `v0.1.x`, עם כותרת Release באנגלית. מעבר ל־minor או major version דורש החלטה מפורשת.
+
+**Rollback:** מבטלים את השינוי ב־branch חדש באמצעות `git revert` וממזגים דרך Pull Request. ה־rollback מקבל גרסה חדשה; אין להזיז tags קיימים או לשכתב את היסטוריית `main`.
+
+**Reason:** כך כל גרסה שפורסמה נשארת נקודת שחזור ברורה, בלי להוסיף כלי versioning או dependencies לפרויקט הסטטי הקטן.
