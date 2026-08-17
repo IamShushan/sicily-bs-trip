@@ -1,0 +1,52 @@
+name: Add PR preview link
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions:
+  pull-requests: write
+
+jobs:
+  preview-link:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or update preview comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        shell: bash
+        run: |
+          marker='<!-- pr-html-preview -->'
+          preview_url="https://htmlpreview.github.io/?https://github.com/${HEAD_REPOSITORY}/blob/${HEAD_SHA}/index.html"
+          body="${marker}
+          
+          📱 [Open the current website preview](${preview_url})
+          
+          This preview is pinned to commit \`${HEAD_SHA}\` and updates after every push to the PR."
+
+          comment_id="$(
+            gh api "repos/${GH_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+              --paginate \
+              --jq '.[] | select(.body | contains("<!-- pr-html-preview -->")) | .id' \
+              | head -n 1
+          )"
+
+          if [[ -n "${comment_id}" ]]; then
+            gh api \
+              --method PATCH \
+              "repos/${GH_REPOSITORY}/issues/comments/${comment_id}" \
+              -f body="${body}"
+          else
+            gh api \
+              --method POST \
+              "repos/${GH_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+              -f body="${body}"
+          fi

@@ -8,6 +8,12 @@
 
 **Reason:** כתובת קבועה למשפחה ופריסה פשוטה של אתר סטטי.
 
+## Pull request previews
+
+**Decision:** כל Pull Request פנימי יקבל תגובה אוטומטית עם קישור לתצוגת `index.html` דרך `htmlpreview.github.io`, כשהקישור מקובע ל־commit העדכני של ה־PR.
+
+**Reason:** כך אפשר לבדוק את הגרסה המוצעת מרחוק ובמובייל לפני המיזוג, בלי לפרוס את ה־branch מעל האתר הפעיל ב־GitHub Pages.
+
 ## Canonical itinerary
 
 **Decision:** הגרסה הפעילה ב־`index.html` היא ה־Source of Truth.
