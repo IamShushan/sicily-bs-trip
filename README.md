@@ -22,13 +22,37 @@ python3 -m http.server 8000
 
 לאחר מכן פותחים `http://localhost:8000`.
 
+## הגנת פרטיות מקומית
+
+לאחר clone חד־פעמי מתקינים את hooks של הפרויקט:
+
+```bash
+./scripts/install_hooks.sh
+```
+
+ה־hooks חוסמים commit ו־push שמכילים פרטי תשלום, מזהים אישיים, פרטי הזמנה, פרטי קשר פרטיים, credentials או קבצים בינאריים שלא אושרו. אפשר להריץ בדיקה מלאה ידנית:
+
+```bash
+python3 scripts/privacy_scan.py --all-files
+```
+
+אין לעקוף חסימת פרטיות באמצעות `--no-verify`. ‏GitHub Actions מריץ בדיקה נוספת בכל Pull Request, אך בריפו ציבורי הבדיקה המקומית לפני push היא קו ההגנה הראשון.
+
 ## מבנה הפרויקט
 
 ```text
 .
 ├── .github/
 │   └── workflows/
+│       ├── privacy-scan.yml
+│       ├── pr-preview.yml
 │       └── release.yml
+├── .githooks/
+├── scripts/
+│   ├── install_hooks.sh
+│   └── privacy_scan.py
+├── tests/
+│   └── test_privacy_scan.py
 ├── AGENTS.md
 ├── README.md
 ├── index.html

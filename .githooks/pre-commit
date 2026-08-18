@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+repo_root="$(git rev-parse --show-toplevel)"
+python3 "$repo_root/scripts/privacy_scan.py" --staged
+
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks git --staged --redact "$repo_root"
+fi
