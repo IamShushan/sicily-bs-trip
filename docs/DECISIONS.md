@@ -22,21 +22,23 @@
 
 ## Lodging structure
 
-**Decision:** 5 לילות ב־Aci Trezza ושני לילות ב־Siracusa / Umbertino.
+**Decision:** 5 לילות ב־Bellini Holiday House במרכז Catania ושני לילות ב־Siracusa / Umbertino.
 
-**Status:** Canonical.
+**Status:** Canonical. ‏Bellini Holiday House היא Confirmed / Booked לתאריכים 26.11–1.12.
+
+**Operational details:** הכניסה באמצעות קודים והגעה סביב 02:00–03:00 אושרה על ידי המארח. המארח יזמין שני מקומות בחניון שמור 24/7 במרחק כמה דקות הליכה, בעלות €20 ליום לרכב (€200 בסך הכול). מחיר הלינה הוא ₪5,423 ללא חניה.
 
 ## Etna / Taormina
 
 **Decision:** ניתן להחליף בין 29.11 ו־30.11 לפי התנאים ב־Etna.
 
-## Catania / Noto — 1.12
+## Catania / Noto
 
-**Decision:** Catania מחליפה את Noto במסלול הקנוני של 1.12. הביקור ב־Catania נשאר מלא, סביב 10:30–14:15. Noto נשמרת כיעד גיבוי בלבד.
+**Decision:** Catania משמשת בסיס ראשון ומקבלת יום הליכה רגוע בשבת ללא רכב. Noto היא יעד המעבר הקנוני ב־1.12 במסלול Central Catania → Noto → Cantine Gulino אם תאושר ותשתלב → Siracusa / Umbertino.
 
 **Cantine Gulino:** תוספת קנונית מועדפת שממתינה לאישור, בחלון מבוקש של כ־16:00–16:15. היא אינה תנאי לכך שהיום יעבוד ואינה מסומנת כמאושרת או מוזמנת.
 
-**Reason:** יום המעבר נשאר רציף וגמיש: Catania מלאה פועלת גם ללא Gulino, ו־Noto נשארת חלופה מוכנה במקום להימחק.
+**Reason:** הבסיס המרכזי מאפשר לנצל את שבת לקטניה ברגל, ולכן יום המעבר נשאר רגוע עם ביקור קומפקטי ב־Noto. אם Gulino אינה מתאימה ללוח היום, ממשיכים ישירות ל־Siracusa בלי לדחוס את Noto.
 
 ## Architecture
 
