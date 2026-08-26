@@ -1,4 +1,3 @@
-// Keeps the sticky itinerary navigation aligned with the current section.
 (() => {
   const navigation = document.querySelector('.topnav');
   const links = [...document.querySelectorAll('.topnav a[href^="#"]')];
@@ -6,6 +5,140 @@
   const targets = [...document.querySelectorAll('section[id]')].filter((section) =>
     linkedIds.has(section.id),
   );
+
+  const dayCards = [...document.querySelectorAll('.day-card')];
+  const longDetailCards = [
+    ...document.querySelectorAll(
+      '.day-card .planb, .day-card .warn, .day-card .child, .day-card .note',
+    ),
+  ].filter(
+    (card) =>
+      card.textContent.trim().length >= 500 &&
+      card.querySelector(':scope > strong:first-child'),
+  );
+
+  const setDetailExpanded = (card, expanded) => {
+    const toggle = card.querySelector(':scope > .large-card-toggle');
+    const content = card.querySelector(':scope > .large-card-content');
+    const inner = content?.querySelector(':scope > .large-card-content-inner');
+
+    if (!toggle || !content || !inner) return;
+
+    card.classList.toggle('is-detail-expanded', expanded);
+    toggle.setAttribute('aria-expanded', String(expanded));
+    content.setAttribute('aria-hidden', String(!expanded));
+    inner.toggleAttribute('inert', !expanded);
+  };
+
+  longDetailCards.forEach((card, index) => {
+    const toggle = document.createElement('button');
+    const content = document.createElement('div');
+    const inner = document.createElement('div');
+    const cardOwner = card.closest('.day-card')?.id ?? 'detail';
+    const toggleId = `${cardOwner}-detail-${index + 1}-toggle`;
+    const contentId = `${cardOwner}-detail-${index + 1}-content`;
+
+    toggle.className = 'large-card-toggle';
+    toggle.type = 'button';
+    toggle.id = toggleId;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', contentId);
+
+    while (card.firstChild) {
+      const node = card.firstChild;
+      const tagName = node.nodeType === Node.ELEMENT_NODE ? node.tagName : '';
+
+      if (tagName === 'BR') {
+        node.remove();
+        break;
+      }
+
+      if (['DIV', 'P', 'UL', 'OL', 'TABLE'].includes(tagName)) break;
+      toggle.append(node);
+    }
+
+    content.className = 'large-card-content';
+    content.id = contentId;
+    content.setAttribute('role', 'region');
+    content.setAttribute('aria-labelledby', toggleId);
+    inner.className = 'large-card-content-inner';
+
+    while (card.firstChild) inner.append(card.firstChild);
+    content.append(inner);
+    card.append(toggle, content);
+    card.classList.add('is-detail-collapsible');
+    setDetailExpanded(card, false);
+
+    toggle.addEventListener('click', () => {
+      setDetailExpanded(card, toggle.getAttribute('aria-expanded') !== 'true');
+    });
+  });
+
+  const setDayExpanded = (dayCard, expanded) => {
+    const toggle = dayCard.querySelector(':scope > h2 .day-toggle');
+    const content = dayCard.querySelector(':scope > .day-content');
+    const inner = content?.querySelector(':scope > .day-content-inner');
+
+    if (!toggle || !content || !inner) return;
+
+    dayCard.classList.toggle('is-expanded', expanded);
+    toggle.setAttribute('aria-expanded', String(expanded));
+    content.setAttribute('aria-hidden', String(!expanded));
+    inner.toggleAttribute('inert', !expanded);
+  };
+
+  for (const dayCard of dayCards) {
+    const heading = dayCard.querySelector(':scope > h2');
+    if (!heading || !dayCard.id) continue;
+
+    const toggle = document.createElement('button');
+    const content = document.createElement('div');
+    const inner = document.createElement('div');
+    const toggleId = `${dayCard.id}-toggle`;
+    const contentId = `${dayCard.id}-content`;
+
+    toggle.className = 'day-toggle';
+    toggle.type = 'button';
+    toggle.id = toggleId;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', contentId);
+
+    while (heading.firstChild) toggle.append(heading.firstChild);
+    heading.append(toggle);
+
+    content.className = 'day-content';
+    content.id = contentId;
+    content.setAttribute('role', 'region');
+    content.setAttribute('aria-labelledby', toggleId);
+    inner.className = 'day-content-inner';
+
+    while (heading.nextSibling) inner.append(heading.nextSibling);
+    content.append(inner);
+    dayCard.append(content);
+    dayCard.classList.add('is-collapsible');
+    setDayExpanded(dayCard, false);
+
+    toggle.addEventListener('click', () => {
+      setDayExpanded(dayCard, toggle.getAttribute('aria-expanded') !== 'true');
+    });
+  }
+
+  const revealHashTarget = () => {
+    if (!location.hash) return;
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    const dayCard = target?.closest('.day-card');
+    if (dayCard) setDayExpanded(dayCard, true);
+  };
+
+  for (const link of links) {
+    link.addEventListener('click', () => {
+      const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+      const dayCard = target?.closest('.day-card');
+      if (dayCard) setDayExpanded(dayCard, true);
+    });
+  }
+
+  revealHashTarget();
 
   if (!navigation || !links.length || !targets.length) return;
 
@@ -41,5 +174,8 @@
   markCurrentSection();
   addEventListener('scroll', scheduleUpdate, { passive: true });
   addEventListener('resize', scheduleUpdate, { passive: true });
-  addEventListener('hashchange', scheduleUpdate);
+  addEventListener('hashchange', () => {
+    revealHashTarget();
+    scheduleUpdate();
+  });
 })();
