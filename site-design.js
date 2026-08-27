@@ -6,7 +6,19 @@
     linkedIds.has(section.id),
   );
 
-  const dayCards = [...document.querySelectorAll('.day-card')];
+  const supportingSectionIds = [
+    'kids',
+    'evenings',
+    'actions',
+    'bookings',
+    'checks',
+    'source-challenge',
+    'mustfix',
+  ];
+  const collapsibleSections = [
+    ...document.querySelectorAll('.day-card'),
+    ...supportingSectionIds.map((id) => document.getElementById(id)).filter(Boolean),
+  ];
   const longDetailCards = [
     ...document.querySelectorAll(
       '.day-card .planb, .day-card .warn, .day-card .child, .day-card .note',
@@ -74,30 +86,30 @@
     });
   });
 
-  const setDayExpanded = (dayCard, expanded) => {
-    const toggle = dayCard.querySelector(':scope > h2 .day-toggle');
-    const content = dayCard.querySelector(':scope > .day-content');
-    const inner = content?.querySelector(':scope > .day-content-inner');
+  const setSectionExpanded = (section, expanded) => {
+    const toggle = section.querySelector(':scope > h2 .section-toggle');
+    const content = section.querySelector(':scope > .section-content');
+    const inner = content?.querySelector(':scope > .section-content-inner');
 
     if (!toggle || !content || !inner) return;
 
-    dayCard.classList.toggle('is-expanded', expanded);
+    section.classList.toggle('is-expanded', expanded);
     toggle.setAttribute('aria-expanded', String(expanded));
     content.setAttribute('aria-hidden', String(!expanded));
     inner.toggleAttribute('inert', !expanded);
   };
 
-  for (const dayCard of dayCards) {
-    const heading = dayCard.querySelector(':scope > h2');
-    if (!heading || !dayCard.id) continue;
+  for (const section of collapsibleSections) {
+    const heading = section.querySelector(':scope > h2');
+    if (!heading || !section.id) continue;
 
     const toggle = document.createElement('button');
     const content = document.createElement('div');
     const inner = document.createElement('div');
-    const toggleId = `${dayCard.id}-toggle`;
-    const contentId = `${dayCard.id}-content`;
+    const toggleId = `${section.id}-toggle`;
+    const contentId = `${section.id}-content`;
 
-    toggle.className = 'day-toggle';
+    toggle.className = 'section-toggle';
     toggle.type = 'button';
     toggle.id = toggleId;
     toggle.setAttribute('aria-expanded', 'false');
@@ -106,35 +118,35 @@
     while (heading.firstChild) toggle.append(heading.firstChild);
     heading.append(toggle);
 
-    content.className = 'day-content';
+    content.className = 'section-content';
     content.id = contentId;
     content.setAttribute('role', 'region');
     content.setAttribute('aria-labelledby', toggleId);
-    inner.className = 'day-content-inner';
+    inner.className = 'section-content-inner';
 
     while (heading.nextSibling) inner.append(heading.nextSibling);
     content.append(inner);
-    dayCard.append(content);
-    dayCard.classList.add('is-collapsible');
-    setDayExpanded(dayCard, false);
+    section.append(content);
+    section.classList.add('is-collapsible');
+    setSectionExpanded(section, false);
 
     toggle.addEventListener('click', () => {
-      setDayExpanded(dayCard, toggle.getAttribute('aria-expanded') !== 'true');
+      setSectionExpanded(section, toggle.getAttribute('aria-expanded') !== 'true');
     });
   }
 
   const revealHashTarget = () => {
     if (!location.hash) return;
     const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-    const dayCard = target?.closest('.day-card');
-    if (dayCard) setDayExpanded(dayCard, true);
+    const section = target?.closest('.is-collapsible');
+    if (section) setSectionExpanded(section, true);
   };
 
   for (const link of links) {
     link.addEventListener('click', () => {
       const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
-      const dayCard = target?.closest('.day-card');
-      if (dayCard) setDayExpanded(dayCard, true);
+      const section = target?.closest('.is-collapsible');
+      if (section) setSectionExpanded(section, true);
     });
   }
 
