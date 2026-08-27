@@ -11,6 +11,7 @@
 - [`AGENTS.md`](AGENTS.md) — כללי העבודה בפרויקט.
 - [`docs/TRIP_REQUIREMENTS.md`](docs/TRIP_REQUIREMENTS.md) — דרישות ואילוצים קבועים.
 - [`docs/DECISIONS.md`](docs/DECISIONS.md) — החלטות משמעותיות.
+- [`docs/lessons.md`](docs/lessons.md) — דברים לא־מובנים מאליהם שנלמדו במהלך העבודה ושכדאי לא לגלות מחדש.
 
 ## הרצה מקומית
 
@@ -56,12 +57,15 @@ python3 scripts/privacy_scan.py --all-files
 ├── AGENTS.md
 ├── README.md
 ├── index.html
+├── site-design.css
+├── site-design.js
 └── docs/
     ├── DECISIONS.md
+    ├── lessons.md
     └── TRIP_REQUIREMENTS.md
 ```
 
-ה־CSS נמצא כרגע בתוך `index.html`, כפי שהיה בקובץ הקנוני המקורי. אין JavaScript או assets מקומיים חיצוניים.
+`index.html` מכיל את התוכן הקנוני ואת סגנונות הבסיס המבניים. `site-design.css` מוסיף את שכבת העיצוב וההתאמות הרספונסיביות, ו־`site-design.js` מנהל את האינטראקציות בעמוד, כולל קיפול ופתיחה של הסקשנים. שלושת הקבצים סטטיים, ללא dependencies וללא שלב build.
 
 ## פרסום
 
