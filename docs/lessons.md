@@ -1,21 +1,31 @@
-# יומן לקחים
+# lessons.md — what it is and how to use it
 
-הקובץ מתעד דברים שנלמדו במהלך עבודה אמיתית על הפרויקט, כדי שאפשר יהיה לקרוא אותם בתחילת עבודה עתידית ולהימנע מחזרה על טעויות או חקירה שכבר נעשתה.
+`lessons.md` is a running log of things learned while working in this repo.
+It exists because context resets between sessions; anything not written down
+is lost.
 
-מוסיפים רשומה כאשר נתקלים בתיקון של המשתמש, הפתעה טכנית, כשל בבדיקה, הנחה שגויה או פרט תחזוקה לא־מובן מאליו שעשוי לחזור. כל רשומה מתארת מה קרה, מה נלמד ומה לעשות בפעם הבאה. פרטי משימה זמניים ועובדות מסלול נשארים מחוץ ליומן ובמקורות האמת המתאימים.
+## When to write an entry
 
-## 28.8.2026 — זהו יומן ניסיון, לא מסמך נהלים
+Write when you hit something non-obvious that would cost time to rediscover:
 
-**מה קרה:** הקובץ נכתב תחילה כרשימת כללים כללית לתחזוקת האתר. המשתמש הבהיר שמטרתו היא לשמש יומן של דברים שנתקלתי בהם ולמדתי בפועל.
+- A failure and its actual root cause.
+- An API or tool that behaves differently than documented.
+- A decision made, and the reason, so it is not relitigated.
+- An approach that was tried and rejected, and why.
 
-**מה למדתי:** `docs/lessons.md` צריך לצבור ניסיון קונקרטי מהעבודה על הפרויקט. ההקשר של האירוע חשוב, כי הוא מאפשר להבין בעתיד מתי הלקח רלוונטי.
+## When NOT to write
 
-**בפעם הבאה:** בתחילת עבודה יש לקרוא את הרשומות וליישם את הרלוונטיות. לפני commit יש לשאול אם קרה משהו חדש ששווה לזכור; אם כן, מוסיפים רשומה מתוארכת עם "מה קרה", "מה למדתי" ו"בפעם הבאה". אם לקח קיים כבר מכסה את האירוע, מעדכנים אותו במקום ליצור כפילות.
+- Task status or progress narration.
+- Generic best practices.
+- Anything already covered in `AGENTS.md` or `docs/DECISIONS.md`.
 
-## 27.8.2026 — תאריך העדכון ב־footer אינו אוטומטי
+## Format
 
-**מה קרה:** `index.html` עודכן, אבל הערך "עדכון אחרון" ב־footer נשאר `25.8.2026`. המשתמש הבחין בפער לאחר פתיחת ה־PR.
+Use one line or a short block per lesson, newest last, grouped by area.
 
-**מה למדתי:** תאריך העדכון כתוב ידנית ב־`index.html`; שינוי תוכן או ממשק בעמוד אינו מעדכן אותו אוטומטית.
+## Maintenance
 
-**בפעם הבאה:** בכל שינוי ב־`index.html`, יש לעדכן גם את "עדכון אחרון" לתאריך העבודה בפורמט `D.M.YYYY`, להשאיר את "תאריך יצירת המסמך" ללא שינוי, ולוודא לפני commit באמצעות `rg -n "עדכון אחרון" index.html` שהתאריך נכון.
+- Read this file at the start of every session.
+- If a lesson is stable and always applies, promote it to `AGENTS.md` or
+  `docs/DECISIONS.md` and delete it here.
+- Prune entries that are no longer true. A stale lesson is worse than no lesson.
