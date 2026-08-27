@@ -14,6 +14,7 @@
 2. קרא את `docs/TRIP_REQUIREMENTS.md`.
 3. בדוק את `docs/DECISIONS.md`.
 4. בדוק את הגרסה הפעילה של המסלול ב־`index.html`.
+5. קרא את `lessons.md` ובדוק אילו לקחים חלים על השינוי.
 
 אין להסתמך על chat history כמקור הקבוע לדרישות הפרויקט.
 
